@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Закиньте монету мальчику на лечение</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0f172a;
+    color: #f8fafc;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 16px;
+  }
+  .card {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    padding: 36px 24px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  }
+  .avatar {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #f57507;
+    margin: 0 auto 14px auto;
+    display: block;
+    background-color: #0f172a;
+  }
+  .controls {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .upload-btn {
+    display: inline-block;
+    background: #334155;
+    color: #f8fafc;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    border: none;
+  }
+  .upload-btn:hover { background: #475569; }
+  .save-btn {
+    display: none;
+    background: #059669;
+    color: #ffffff;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    border: none;
+  }
+  .save-btn:hover { background: #047857; }
+  h1 {
+    font-size: 22px;
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+  .subtitle {
+    color: #94a3b8;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+  .donate-btn {
+    display: block;
+    width: 100%;
+    background-color: #f57507;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 18px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 18px;
+    transition: background-color 0.2s, transform 0.1s;
+  }
+  .donate-btn:hover { background-color: #d96402; }
+  .donate-btn:active { transform: scale(0.99); }
+  .direct-link {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid #334155;
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.6;
+  }
+  .direct-link a {
+    color: #94a3b8;
+    word-break: break-all;
+  }
+  .tg-link {
+    margin-top: 12px;
+    display: block;
+  }
+  .tg-link a {
+    color: #38bdf8;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .tg-link a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <img id="avatarImg" class="avatar" alt="Фото" src="data:image/svg+xml,%3Csvg xmlns='http://w3.org' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%231e293b'/%3E%3Cellipse cx='100' cy='95' rx='72' ry='52' fill='%23f1c29b'/%3E%3Ccircle cx='72' cy='90' r='9' fill='%23ffffff'/%3E%3Ccircle cx='72' cy='90' r='4.5' fill='%23334155'/%3E%3Ccircle cx='128' cy='90' r='9' fill='%23ffffff'/%3E%3Ccircle cx='128' cy='90' r='4.5' fill='%23334155'/%3E%3Cpath d='M85 118 Q100 128 115 118' stroke='%23b56b52' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3Cpath d='M40 190 Q100 140 160 190' fill='%2364748b'/%3E%3C/svg%3E">
+
+  <div class="controls" id="controlsBar">
+    <label class="upload-btn">
+      📷 Поставить своё фото
+      <input type="file" accept="image/*" style="display:none" onchange="setCustomPhoto(event)">
+    </label>
+    <button type="button" id="saveHtmlBtn" class="save-btn" onclick="downloadFinalSite()">
+      💾 Сохранить сайт с фото
+    </button>
+  </div>
+
+  <h1>Закиньте монету мальчику на лечение</h1>
+  <p class="subtitle">Нажмите на кнопку ниже, чтобы перейти на страницу пожертвований.</p>
+
+  <!-- Кнопка перехода на DonationAlerts -->
+  <a class="donate-btn" href="https://www.donationalerts.com/r/anirumovec" target="_blank" rel="noopener noreferrer">
+    Закинуть монету
+  </a>
+
+  <div class="direct-link">
+    Прямая ссылка для пожертвований:<br>
+    <a href="https://www.donationalerts.com/r/anirumovec" target="_blank" rel="noopener noreferrer">https://www.donationalerts.com/r/anirumovec</a>
+    
+    <div class="tg-link">
+      Мой Telegram:<br>
+      <a href="https://t.me/chopik1567" target="_blank" rel="noopener noreferrer">https://t.me/chopik1567</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function setCustomPhoto(e) {
+    var file = e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      document.getElementById('avatarImg').src = ev.target.result;
+      document.getElementById('saveHtmlBtn').style.display = 'inline-block';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function downloadFinalSite() {
+    var clone = document.documentElement.cloneNode(true);
+    var controls = clone.querySelector('#controlsBar');
+    if (controls) controls.remove();
+    var html = '<!DOCTYPE html>\n' + clone.outerHTML;
+    var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'index.html';
+    a.click();
+  }
+</script>
+
+</body>
+</html>
